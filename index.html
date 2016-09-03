@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>File Picker</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="http://apis.google.com/js/client.js"></script>
+    <script src="http://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="app.js"></script>
+  </head>
+  <body ng-app="filePicker" ng-controller="mainController" class="text-center">
+    <p>$env:path="$env:Path;C:\Python27"</p>
+    <div><img src="images\abwp-logo-lockup.svg" height="128" width="128" /></div>
+    <a ng-click="handleAuthClick()" class="btn btn-primary">Click</a>
+    <ul ng-repeat="file in files">
+      <li>
+        <a ng-href="{{ file.webViewLink }}">{{ file.name }}</a>
+        <a class="btn btn-primary" ng-href="{{ file.webContentLink}}">Download</a>
+      </li>
+    </ul>
+    <a ng-click="nextPage(nextPageToken)">More</a>
+    <div class="g-savetodrive"
+   data-src="//example.com/path/to/myfile.pdf"
+   data-filename="My Statement.pdf"
+   data-sitename="My Company Name">
+    </div>
+  </body>
+</html>
