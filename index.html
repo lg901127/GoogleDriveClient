@@ -4,27 +4,45 @@
     <meta charset="utf-8">
     <title>File Picker</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://use.fontawesome.com/82a8a25146.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="http://apis.google.com/js/client.js"></script>
     <script src="http://apis.google.com/js/api.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="upload.js"></script>
     <script src="app.js"></script>
+    <style>
+    .more {
+      clear: both;
+      margin-top: 20px;
+    }
+    .upload input{
+      display: inline;
+    }
+    .list-group-item {
+      width: 256px;
+      height: 256px;
+    }
+    </style>
   </head>
   <body ng-app="filePicker" ng-controller="mainController" class="text-center">
-    <p>$env:path="$env:Path;C:\Python27"</p>
     <div><img src="images\abwp-logo-lockup.svg" height="128" width="128" /></div>
-    <a ng-click="handleAuthClick()" class="btn btn-primary">Click</a>
-    <ul ng-repeat="file in files">
-      <li>
+    <a ng-click="handleAuthClick()" class="btn btn-primary" ng-if="files.length == 0">Login</a>
+    <div class="upload" ng-if="files.length != 0">
+      <input type="file" id="myFile">
+      <a ng-click="u()" class="btn btn-warning"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+      <p>{{ uploadMsg }}</p>
+    </div>
+    <ul ng-repeat="file in files" class="list-group">
+      <li class="list-group-item col-sm-2">
+        <img ng-src="{{ file.thumbnailLink }}" />
         <a ng-href="{{ file.webViewLink }}">{{ file.name }}</a>
-        <a class="btn btn-primary" ng-href="{{ file.webContentLink}}">Download</a>
+        <img ng-src="{{ file.iconLink }}" />
+        <a class="btn btn-primary" ng-href="{{ file.webContentLink }}"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
       </li>
     </ul>
-    <a ng-click="nextPage(nextPageToken)">More</a>
-    <div class="g-savetodrive"
-   data-src="//example.com/path/to/myfile.pdf"
-   data-filename="My Statement.pdf"
-   data-sitename="My Company Name">
+    <div class="more">
+      <a ng-click="nextPage(nextPageToken)" ng-if="files.length != 0" class="btn btn-secondary">More</a>
     </div>
   </body>
 </html>
