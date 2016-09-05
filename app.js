@@ -86,7 +86,18 @@ filePicker.controller('mainController', function($scope){
       onComplete: function() {
         $scope.$apply(function() {
           $scope.uploadMsg = "Succeeded!";
-        })
+        });
+        var request = gapi.client.drive.files.list({
+          'pageSize': 10,
+          'fields': "nextPageToken, files"
+        });
+        request.execute(function(resp) {
+          var files = resp.files;
+          $scope.$apply(function() {
+            $scope.files = files;
+          });
+          $scope.nextPageToken = resp.nextPageToken;
+        });
       },
       onError: function() {
         $scope.uploadMsg = "Error!";

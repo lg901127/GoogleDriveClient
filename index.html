@@ -25,6 +25,7 @@
     <div><img src="images\abwp-logo-lockup.svg" height="128" width="128" /></div>
     <a ng-click="handleAuthClick()" class="btn btn-primary" ng-if="files.length == 0">Login</a>
     <div class="upload" ng-if="files.length != 0">
+      <h4>Upload to your Google Drive: </h4>
       <input type="file" id="myFile">
       <a ng-click="u()" class="btn btn-warning"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
       <p>{{ uploadMsg }}</p>
