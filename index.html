@@ -19,10 +19,6 @@
     .upload input{
       display: inline;
     }
-    .list-group-item {
-      width: 256px;
-      height: 256px;
-    }
     </style>
   </head>
   <body ng-app="filePicker" ng-controller="mainController" class="text-center">
@@ -33,14 +29,24 @@
       <a ng-click="u()" class="btn btn-warning"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
       <p>{{ uploadMsg }}</p>
     </div>
-    <ul ng-repeat="file in files" class="list-group">
-      <li class="list-group-item col-sm-2">
-        <img ng-src="{{ file.thumbnailLink }}" />
-        <a ng-href="{{ file.webViewLink }}">{{ file.name }}</a>
-        <img ng-src="{{ file.iconLink }}" />
-        <a class="btn btn-primary" ng-href="{{ file.webContentLink }}"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
-      </li>
-    </ul>
+    <table class="table text-left">
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Type</th>
+          <th>Download</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="file in files">
+        <tr>
+          <td><a ng-href="{{ file.webViewLink }}">{{ file.name }}</a></td>
+          <td><img ng-src="{{ file.iconLink }}" /></td>
+          <td><a class="btn btn-primary" ng-href="{{ file.webContentLink }}"><i class="fa fa-arrow-down" aria-hidden="true"></i></a></td>
+          <td><a ng-click="deleteFile(file.id, $index)" class="btn btn-danger">X</a></td>
+        </tr>
+      </tbody>
+    </table>
     <div class="more">
       <a ng-click="nextPage(nextPageToken)" ng-if="files.length != 0" class="btn btn-secondary">More</a>
     </div>

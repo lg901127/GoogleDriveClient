@@ -42,7 +42,7 @@ filePicker.controller('mainController', function($scope){
 
     request.execute(function(resp) {
       var files = resp.files;
-      console.log(files[0]);
+      // console.log(files[0]);
       for (var i in files) {
         $scope.$apply(function() {
           $scope.files.push(files[i]);
@@ -70,6 +70,14 @@ filePicker.controller('mainController', function($scope){
     });
   }
 
+  $scope.deleteFile = function(id, index) {
+    var request = gapi.client.drive.files.delete({
+      'fileId': id
+    });
+    request.execute();
+    $scope.files.splice(index, 1);
+  }
+
   $scope.u = function() {
     var file = document.getElementById("myFile").files;
     var uploader = new MediaUploader({
@@ -77,15 +85,15 @@ filePicker.controller('mainController', function($scope){
       token: gapi.auth.getToken().access_token,
       onComplete: function() {
         $scope.$apply(function() {
-          $scope.uploadMsg = "Succeeded!"
+          $scope.uploadMsg = "Succeeded!";
         })
       },
       onError: function() {
-        $scope.uploadMsg = "Error!"
+        $scope.uploadMsg = "Error!";
       },
       onProgress: function() {
         $scope.$apply(function() {
-          $scope.uploadMsg = "Uploading.."
+          $scope.uploadMsg = "Uploading..";
         })
       }
     });
